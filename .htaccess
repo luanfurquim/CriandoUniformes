@@ -42,7 +42,9 @@ DirectoryIndex index.html
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   # Ninguém exibe a página dentro de outro site (clickjacking).
   Header set X-Frame-Options "SAMEORIGIN"
-  Header set Content-Security-Policy "frame-ancestors 'self'; upgrade-insecure-requests"
+  # Sem upgrade-insecure-requests: no link temporário (http, sem certificado) ele quebra
+  # todas as imagens. O 301 já leva o domínio para https.
+  Header set Content-Security-Policy "frame-ancestors 'self'"
   Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
   # Navegador só aceita https por 1 ano. O navegador ignora o cabeçalho em http.
   Header set Strict-Transport-Security "max-age=31536000"
