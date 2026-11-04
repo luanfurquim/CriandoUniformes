@@ -1,0 +1,9 @@
+# Publica a landing em public_html/ a cada push na main.
+deployment:
+  tasks:
+    - export DEPLOYPATH=$HOME/public_html/
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -f index.html robots.txt sitemap.xml .htaccess og-image.jpg favicon.svg $DEPLOYPATH
+    - /bin/bash -c "shopt -s nullglob; cp -f google*.html $DEPLOYPATH; true"
+    - /bin/rm -rf $DEPLOYPATH/fotos $DEPLOYPATH/logos $DEPLOYPATH/fonts
+    - /bin/cp -R fotos logos fonts $DEPLOYPATH
