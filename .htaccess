@@ -40,4 +40,13 @@ DirectoryIndex index.html
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # Ninguém exibe a página dentro de outro site (clickjacking).
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Content-Security-Policy "frame-ancestors 'self'; upgrade-insecure-requests"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  # Navegador só aceita https por 1 ano. O navegador ignora o cabeçalho em http.
+  Header set Strict-Transport-Security "max-age=31536000"
 </IfModule>
+
+# Sem listagem de pasta.
+Options -Indexes
